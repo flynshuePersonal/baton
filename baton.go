@@ -20,11 +20,12 @@ import (
 	"crypto/tls"
 	"errors"
 	"flag"
-	"github.com/valyala/fasthttp"
 	"io/ioutil"
 	"log"
 	"math"
 	"time"
+
+	"github.com/valyala/fasthttp"
 )
 
 var (
@@ -236,6 +237,7 @@ func prepareRun(configuration Configuration) (runConfiguration, error) {
 	}
 
 	client := &fasthttp.Client{}
+	client.MaxConnsPerHost = 65000
 	if configuration.ignoreTLS {
 		tlsConfig := &tls.Config{InsecureSkipVerify: true}
 		client = &fasthttp.Client{TLSConfig: tlsConfig}
