@@ -237,11 +237,11 @@ func prepareRun(configuration Configuration) (runConfiguration, error) {
 	}
 
 	client := &fasthttp.Client{}
-	client.MaxConnsPerHost = 65000
 	if configuration.ignoreTLS {
 		tlsConfig := &tls.Config{InsecureSkipVerify: true}
 		client = &fasthttp.Client{TLSConfig: tlsConfig}
 	}
+	client.MaxConnsPerHost = 65000
 
 	body := configuration.body
 	if configuration.dataFilePath != "" {
