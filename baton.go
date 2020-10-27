@@ -40,6 +40,7 @@ var (
 	suppressOutput   = flag.Bool("o", false, "Suppress output, no results will be printed to stdout")
 	url              = flag.String("u", "", "URL to run against")
 	wait             = flag.Int("w", 0, "Number of seconds to wait before running test")
+	maxConn          = flag.Int("s", 65000, "Max number of connections per host that can be established")
 )
 
 // Baton implements the load tester
@@ -81,6 +82,7 @@ func main() {
 		*suppressOutput,
 		*url,
 		*wait,
+		*maxConn,
 	}
 
 	baton := &Baton{configuration: configuration, result: *newResult()}
@@ -241,7 +243,7 @@ func prepareRun(configuration Configuration) (runConfiguration, error) {
 		tlsConfig := &tls.Config{InsecureSkipVerify: true}
 		client = &fasthttp.Client{TLSConfig: tlsConfig}
 	}
-	client.MaxConnsPerHost = 65000
+	client.MaxConnsPerHost = configuration.maxConn
 
 	body := configuration.body
 	if configuration.dataFilePath != "" {
