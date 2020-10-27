@@ -33,6 +33,7 @@ type Configuration struct {
 	suppressOutput   bool
 	url              string
 	wait             int
+	maxConn          int
 }
 
 func (configuration *Configuration) validate() error {
