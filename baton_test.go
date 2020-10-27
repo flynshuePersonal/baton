@@ -19,12 +19,13 @@ package main
 import (
 	"encoding/hex"
 	"fmt"
-	"github.com/valyala/fasthttp"
 	"io/ioutil"
 	"os"
 	"sync/atomic"
 	"testing"
 	"time"
+
+	"github.com/valyala/fasthttp"
 )
 
 type HTTPTestHandler struct {
@@ -90,6 +91,7 @@ func defaultConfig() Configuration {
 		true,
 		"http://localhost:" + port,
 		0,
+		65000,
 	}
 }
 
